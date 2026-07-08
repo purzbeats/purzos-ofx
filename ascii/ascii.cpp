@@ -30,7 +30,7 @@
 #include "ofxsImageEffect.h"
 #include "ofxsMultiThread.h"
 #include "ofxsProcessing.H"
-#include "font8x8_basic.h"   // char font8x8_basic[128][8], rows top->bottom, bit0 = leftmost
+#include "font8x8_basic.h"   // unsigned char font8x8_basic[128][8], rows top->bottom, bit0 = leftmost
 
 namespace {
 

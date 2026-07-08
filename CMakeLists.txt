@@ -8,6 +8,10 @@ project(purzos_ofx CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Plugins are shared modules; the static support lib linked into them must be
+# position-independent or the GCC/Clang linker rejects it (R_X86_64_PC32 / -fPIC).
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
