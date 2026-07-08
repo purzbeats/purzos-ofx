@@ -14,6 +14,11 @@ on:
       - "v*"
   workflow_dispatch: {}   # allow manual runs (builds artifacts, no release)
 
+# Needed for softprops/action-gh-release to create the Release; the default
+# GITHUB_TOKEN is read-only otherwise (403 "Resource not accessible").
+permissions:
+  contents: write
+
 jobs:
   build:
     strategy:
