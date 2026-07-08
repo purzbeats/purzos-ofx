@@ -1,0 +1,7 @@
+# Vendored clone of the official OpenFX SDK (BSD-3-Clause) — not redistributed
+# here. Clone it yourself before building:
+#   git clone https://github.com/AcademySoftwareFoundation/openfx openfx
+/openfx/
+
+# CMake build tree + generated .ofx.bundle outputs (regenerate: ./build.ps1)
+/build/

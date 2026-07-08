@@ -1,0 +1,72 @@
+name: release
+
+# Build the .ofx bundles on all three desktop platforms and attach them to a
+# GitHub Release. Triggered by pushing a version tag, e.g.:
+#   git tag v0.1.0 && git push origin v0.1.0
+#
+# The OpenFX SDK is cloned fresh here (never committed to this repo). The
+# compiled bundles statically link its BSD-3 Support library, so THIRD-PARTY.md
+# is shipped inside each release archive alongside the plugins.
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch: {}   # allow manual runs (builds artifacts, no release)
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            name: windows-x64
+            configure: -A x64
+          - os: macos-latest      # Apple Silicon runner (arm64)
+            name: macos-arm64
+            configure: ""
+          - os: ubuntu-latest
+            name: linux-x64
+            configure: ""
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Clone OpenFX SDK
+        shell: pwsh
+        run: git clone --depth 1 https://github.com/AcademySoftwareFoundation/openfx openfx
+
+      # build.ps1 is Windows-tuned (VS generator, OFX_PLUGIN_PATH); on every
+      # platform we just drive CMake directly against the shared CMakeLists.
+      - name: Configure
+        shell: pwsh
+        run: cmake -S . -B build ${{ matrix.configure }} -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build (Release)
+        shell: pwsh
+        run: cmake --build build --config Release
+
+      # Zip the bundles (users just drop these into their OFX plugins folder).
+      # THIRD-PARTY.md ships alongside to satisfy the OpenFX BSD-3 binary notice.
+      - name: Stage release archive
+        shell: pwsh
+        run: |
+          $stage = "purzos-ofx-${{ matrix.name }}"
+          New-Item -ItemType Directory -Force $stage | Out-Null
+          Copy-Item build/bundles/* $stage -Recurse
+          Copy-Item README.md, LICENSE, THIRD-PARTY.md $stage
+          Compress-Archive -Path "$stage/*" -DestinationPath "$stage.zip" -Force
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: purzos-ofx-${{ matrix.name }}
+          path: purzos-ofx-${{ matrix.name }}.zip
+
+      - name: Attach to Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: purzos-ofx-${{ matrix.name }}.zip
+          generate_release_notes: true
