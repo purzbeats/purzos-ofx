@@ -33,22 +33,26 @@ without admin rights, put the bundles anywhere and add that folder to the
 
 ## Effects
 
+Every preview below applies the plugin to the same source frame:
+
+<img src="assets/original.jpg" width="480" alt="Source frame" />
+
 ### Ports of the purzOS web tools
 
-| Plugin | What it does |
-|---|---|
-| ASCII | image rendered as ASCII cells (embedded public-domain 8x8 font) |
-| Bayer Dither | ordered Bayer-matrix dithering |
-| Pixel Sort | threshold-driven pixel sorting |
+| Preview | Plugin | What it does |
+|---|---|---|
+| <img src="assets/ascii.jpg" width="240" alt="ASCII" /> | ASCII | image rendered as ASCII cells (embedded public-domain 8x8 font) |
+| <img src="assets/bayer.jpg" width="240" alt="Bayer Dither" /> | Bayer Dither | ordered Bayer-matrix dithering |
+| <img src="assets/pixel-sort.jpg" width="240" alt="Pixel Sort" /> | Pixel Sort | threshold-driven pixel sorting |
 
 ### Glitch (OFX-native)
 
 `Hold frames` sets how many frames each glitch state lasts before re-rolling.
 
-| Plugin | What it does |
-|---|---|
-| Slice Glitch | horizontal slice bands torn sideways (wrapping) with per-slice R/B split |
-| Chroma Shift | directional RGB separation, jittering per horizontal band |
+| Preview | Plugin | What it does |
+|---|---|---|
+| <img src="assets/slice-glitch.jpg" width="240" alt="Slice Glitch" /> | Slice Glitch | horizontal slice bands torn sideways (wrapping) with per-slice R/B split |
+| <img src="assets/chroma-shift.jpg" width="240" alt="Chroma Shift" /> | Chroma Shift | directional RGB separation, jittering per horizontal band |
 
 ### Analog suite — one stage of an '80s composite/VHS signal path each
 
@@ -56,27 +60,27 @@ Real scanline signal processing in YIQ, driven by sines of (row, column, frame).
 Stack them in signal-path order for the full effect: **Chroma Bleed → Luma Ring
 → Rainbow Phase → Tape Wow → Sync Drift**.
 
-| Plugin | Signal stage |
-|---|---|
-| Chroma Bleed | tape chroma: delay-line offset + bandwidth crush + trailing colour smear (luma stays sharp) |
-| Luma Ring | luma channel: band-limit softness, "detail knob" ringing halos, RF multipath ghost echo |
-| Rainbow Phase | subcarrier: per-line hue drift that crawls, cross-colour rainbows on fine detail, dot crawl on chroma edges |
-| Tape Wow | transport: slow wow + scanline flutter + frame bounce + bottom head-switch skew band |
-| Sync Drift | the TV: h-hold diagonal shear, top-of-frame flagging, vertical roll with blanking bar |
+| Preview | Plugin | Signal stage |
+|---|---|---|
+| <img src="assets/chroma-bleed.jpg" width="240" alt="Chroma Bleed" /> | Chroma Bleed | tape chroma: delay-line offset + bandwidth crush + trailing colour smear (luma stays sharp) |
+| <img src="assets/luma-ring.jpg" width="240" alt="Luma Ring" /> | Luma Ring | luma channel: band-limit softness, "detail knob" ringing halos, RF multipath ghost echo |
+| <img src="assets/rainbow-phase.jpg" width="240" alt="Rainbow Phase" /> | Rainbow Phase | subcarrier: per-line hue drift that crawls, cross-colour rainbows on fine detail, dot crawl on chroma edges |
+| <img src="assets/tape-wow.jpg" width="240" alt="Tape Wow" /> | Tape Wow | transport: slow wow + scanline flutter + frame bounce + bottom head-switch skew band |
+| <img src="assets/sync-drift.jpg" width="240" alt="Sync Drift" /> | Sync Drift | the TV: h-hold diagonal shear, top-of-frame flagging, vertical roll with blanking bar |
 
 ### Looks & weird optics
 
 Tone, glow, and self-sampling effects — deterministic, content-driven, no
 randomness at all.
 
-| Plugin | What it does |
-|---|---|
-| Halation | film-emulsion glow: thresholded highlights bloom back over the frame through a tint (film red, phosphor, amber…) |
-| Duotone | luma through a two-ink ramp; presets (Cyanotype, Sepia, Midnight, Miami, Toxic, Heat, Gold Press, Chrome) + custom inks |
-| Video Feedback | camera-at-its-own-monitor: nested zoomed/rotated copies with decay; Spin corkscrews the stack over time |
-| Scan Warp | Rutt/Etra scan processor: the image's own brightness deflects the raster vertically — footage becomes terrain |
-| Phosphor Melt | bright pixels burn in and drip decaying colour trails (down/up/left/right), like smeared phosphor burn |
-| Vector Rescan | oscillographics: sparse scanlines ride the luma like terrain, drawn as a dotted beam with two-tier phosphor glow |
+| Preview | Plugin | What it does |
+|---|---|---|
+| <img src="assets/halation.jpg" width="240" alt="Halation" /> | Halation | film-emulsion glow: thresholded highlights bloom back over the frame through a tint (film red, phosphor, amber…) |
+| <img src="assets/duotone.jpg" width="240" alt="Duotone" /> | Duotone | luma through a two-ink ramp; presets (Cyanotype, Sepia, Midnight, Miami, Toxic, Heat, Gold Press, Chrome) + custom inks |
+| <img src="assets/video-feedback.jpg" width="240" alt="Video Feedback" /> | Video Feedback | camera-at-its-own-monitor: nested zoomed/rotated copies with decay; Spin corkscrews the stack over time |
+| <img src="assets/scan-warp.jpg" width="240" alt="Scan Warp" /> | Scan Warp | Rutt/Etra scan processor: the image's own brightness deflects the raster vertically — footage becomes terrain |
+| <img src="assets/phosphor-melt.jpg" width="240" alt="Phosphor Melt" /> | Phosphor Melt | bright pixels burn in and drip decaying colour trails (down/up/left/right), like smeared phosphor burn |
+| <img src="assets/vector-rescan.jpg" width="240" alt="Vector Rescan" /> | Vector Rescan | oscillographics: sparse scanlines ride the luma like terrain, drawn as a dotted beam with two-tier phosphor glow |
 
 ## Build from source
 
