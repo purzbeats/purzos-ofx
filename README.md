@@ -1,7 +1,8 @@
 # purzOS OFX plugins
 
-A collection of **64** native **OpenFX** video plugins for DaVinci Resolve (and
-any other OFX host) — retro/analog looks, pixelart, glitch, datamosh, CRT/VHS
+A collection of **64** native **OpenFX** video plugins for DaVinci Resolve,
+Natron, and any other OFX host — retro/analog looks, pixelart, glitch, datamosh,
+CRT/VHS
 signal artifacts, colour grades and optical warps. Each plugin is a single
 self-contained `.cpp` (sharing one small helper header, `common/purzfx.hpp`,
 for the deterministic maths) compiled against the official OpenFX C++ Support
@@ -25,10 +26,13 @@ your OFX plugins folder:
 | macOS | `/Library/OFX/Plugins` |
 | Linux | `/usr/OFX/Plugins` |
 
-Relaunch Resolve; the plugins show up under **OpenFX → purzOS**. To install
-without admin rights, put the bundles anywhere and add that folder to the
-`OFX_PLUGIN_PATH` environment variable instead (`;`-separated on Windows,
-`:`-separated elsewhere).
+Relaunch your host; the plugins show up under **OpenFX → purzOS** (in Natron,
+under the **purzOS** group in the node/effects list). To install without admin
+rights, put the bundles anywhere and add that folder to the `OFX_PLUGIN_PATH`
+environment variable instead (`;`-separated on Windows, `:`-separated
+elsewhere) — Resolve, Natron, and other OFX hosts all read it at launch.
+
+Tested in DaVinci Resolve and Natron; should work in any OFX 1.x host.
 
 - macOS builds are **arm64 (Apple Silicon)** only, and unsigned — clear
   quarantine after copying: `xattr -dr com.apple.quarantine /Library/OFX/Plugins`
