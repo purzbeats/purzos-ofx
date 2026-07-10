@@ -101,3 +101,68 @@ add_ofx_plugin(VideoFeedback "${CMAKE_CURRENT_SOURCE_DIR}/feedback/feedback.cpp"
 add_ofx_plugin(ScanWarp "${CMAKE_CURRENT_SOURCE_DIR}/scanwarp/scanwarp.cpp")
 add_ofx_plugin(PhosphorMelt "${CMAKE_CURRENT_SOURCE_DIR}/phosphormelt/phosphormelt.cpp")
 add_ofx_plugin(VectorRescan "${CMAKE_CURRENT_SOURCE_DIR}/vectorrescan/vectorrescan.cpp")
+
+# ===========================================================================
+# Expansion pack — pixelart / glitch / CRT / colour / warp. Each is a single
+# self-contained .cpp sharing common/purzfx.hpp for the deterministic maths.
+# ===========================================================================
+
+# --- pixelart / quantize ---
+add_ofx_plugin(Posterize "${CMAKE_CURRENT_SOURCE_DIR}/posterize/posterize.cpp")
+add_ofx_plugin(ErrorDiffuse "${CMAKE_CURRENT_SOURCE_DIR}/errordiffuse/errordiffuse.cpp")
+add_ofx_plugin(Mosaic       "${CMAKE_CURRENT_SOURCE_DIR}/mosaic/mosaic.cpp")
+add_ofx_plugin(Halftone     "${CMAKE_CURRENT_SOURCE_DIR}/halftone/halftone.cpp")
+add_ofx_plugin(Crosshatch   "${CMAKE_CURRENT_SOURCE_DIR}/crosshatch/crosshatch.cpp")
+add_ofx_plugin(Threshold    "${CMAKE_CURRENT_SOURCE_DIR}/threshold/threshold.cpp")
+add_ofx_plugin(GlyphBlocks  "${CMAKE_CURRENT_SOURCE_DIR}/glyphblocks/glyphblocks.cpp")
+
+# --- glitch / datamosh ---
+add_ofx_plugin(BlockMosh    "${CMAKE_CURRENT_SOURCE_DIR}/blockmosh/blockmosh.cpp")
+add_ofx_plugin(BitCrush     "${CMAKE_CURRENT_SOURCE_DIR}/bitcrush/bitcrush.cpp")
+add_ofx_plugin(BadSignal    "${CMAKE_CURRENT_SOURCE_DIR}/badsignal/badsignal.cpp")
+add_ofx_plugin(LineStutter  "${CMAKE_CURRENT_SOURCE_DIR}/linestutter/linestutter.cpp")
+add_ofx_plugin(ChannelDelay "${CMAKE_CURRENT_SOURCE_DIR}/channeldelay/channeldelay.cpp")
+add_ofx_plugin(WaveShear    "${CMAKE_CURRENT_SOURCE_DIR}/waveshear/waveshear.cpp")
+add_ofx_plugin(DataBend     "${CMAKE_CURRENT_SOURCE_DIR}/databend/databend.cpp")
+add_ofx_plugin(Ghost        "${CMAKE_CURRENT_SOURCE_DIR}/ghost/ghost.cpp")
+
+# --- colour / tone ---
+add_ofx_plugin(Solarize     "${CMAKE_CURRENT_SOURCE_DIR}/solarize/solarize.cpp")
+add_ofx_plugin(Thermal      "${CMAKE_CURRENT_SOURCE_DIR}/thermal/thermal.cpp")
+add_ofx_plugin(GradientMap  "${CMAKE_CURRENT_SOURCE_DIR}/gradientmap/gradientmap.cpp")
+add_ofx_plugin(NightVision  "${CMAKE_CURRENT_SOURCE_DIR}/nightvision/nightvision.cpp")
+add_ofx_plugin(Chromatic    "${CMAKE_CURRENT_SOURCE_DIR}/chromatic/chromatic.cpp")
+add_ofx_plugin(Bleach       "${CMAKE_CURRENT_SOURCE_DIR}/bleach/bleach.cpp")
+add_ofx_plugin(Infrared     "${CMAKE_CURRENT_SOURCE_DIR}/infrared/infrared.cpp")
+add_ofx_plugin(CrossProcess "${CMAKE_CURRENT_SOURCE_DIR}/crossprocess/crossprocess.cpp")
+
+# --- CRT / display simulation ---
+add_ofx_plugin(Scanlines   "${CMAKE_CURRENT_SOURCE_DIR}/scanlines/scanlines.cpp")
+add_ofx_plugin(ShadowMask  "${CMAKE_CURRENT_SOURCE_DIR}/shadowmask/shadowmask.cpp")
+add_ofx_plugin(CrtScreen   "${CMAKE_CURRENT_SOURCE_DIR}/crtscreen/crtscreen.cpp")
+add_ofx_plugin(Bloom       "${CMAKE_CURRENT_SOURCE_DIR}/bloom/bloom.cpp")
+add_ofx_plugin(Interlace   "${CMAKE_CURRENT_SOURCE_DIR}/interlace/interlace.cpp")
+add_ofx_plugin(RollBar     "${CMAKE_CURRENT_SOURCE_DIR}/rollbar/rollbar.cpp")
+add_ofx_plugin(Vignette    "${CMAKE_CURRENT_SOURCE_DIR}/vignette/vignette.cpp")
+add_ofx_plugin(Overscan    "${CMAKE_CURRENT_SOURCE_DIR}/overscan/overscan.cpp")
+
+# --- analog / VHS signal extras ---
+add_ofx_plugin(HeadSwitch   "${CMAKE_CURRENT_SOURCE_DIR}/headswitch/headswitch.cpp")
+add_ofx_plugin(DotCrawl     "${CMAKE_CURRENT_SOURCE_DIR}/dotcrawl/dotcrawl.cpp")
+add_ofx_plugin(Hum          "${CMAKE_CURRENT_SOURCE_DIR}/hum/hum.cpp")
+add_ofx_plugin(Snow         "${CMAKE_CURRENT_SOURCE_DIR}/snow/snow.cpp")
+add_ofx_plugin(TrackingBar  "${CMAKE_CURRENT_SOURCE_DIR}/trackingbar/trackingbar.cpp")
+add_ofx_plugin(ColorUnder   "${CMAKE_CURRENT_SOURCE_DIR}/colorunder/colorunder.cpp")
+add_ofx_plugin(EdgeEnhance  "${CMAKE_CURRENT_SOURCE_DIR}/edgeenhance/edgeenhance.cpp")
+add_ofx_plugin(Dropout      "${CMAKE_CURRENT_SOURCE_DIR}/dropout/dropout.cpp")
+
+# --- optics / warp ---
+add_ofx_plugin(Twirl "${CMAKE_CURRENT_SOURCE_DIR}/twirl/twirl.cpp")
+add_ofx_plugin(Fisheye              "${CMAKE_CURRENT_SOURCE_DIR}/fisheye/fisheye.cpp")
+add_ofx_plugin(Kaleidoscope         "${CMAKE_CURRENT_SOURCE_DIR}/kaleidoscope/kaleidoscope.cpp")
+add_ofx_plugin(Bulge                "${CMAKE_CURRENT_SOURCE_DIR}/bulge/bulge.cpp")
+add_ofx_plugin(MirrorTile           "${CMAKE_CURRENT_SOURCE_DIR}/mirrortile/mirrortile.cpp")
+add_ofx_plugin(ChromaticAberration  "${CMAKE_CURRENT_SOURCE_DIR}/chromaticaberration/chromaticaberration.cpp")
+add_ofx_plugin(Ripple               "${CMAKE_CURRENT_SOURCE_DIR}/ripple/ripple.cpp")
+add_ofx_plugin(Melt                 "${CMAKE_CURRENT_SOURCE_DIR}/melt/melt.cpp")
+add_ofx_plugin(Glass                "${CMAKE_CURRENT_SOURCE_DIR}/glass/glass.cpp")

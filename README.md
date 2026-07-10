@@ -1,10 +1,12 @@
 # purzOS OFX plugins
 
-A collection of native **OpenFX** video plugins for DaVinci Resolve (and any
-other OFX host) — retro/analog looks, glitch, and CRT/VHS signal effects. Each
-plugin is a single self-contained `.cpp` compiled against the official OpenFX
-C++ Support library. Several are ports of the [purzOS](https://github.com/purzbeats/purzOS)
-web effects; the rest are OFX-native.
+A collection of **64** native **OpenFX** video plugins for DaVinci Resolve (and
+any other OFX host) — retro/analog looks, pixelart, glitch, datamosh, CRT/VHS
+signal artifacts, colour grades and optical warps. Each plugin is a single
+self-contained `.cpp` (sharing one small helper header, `common/purzfx.hpp`,
+for the deterministic maths) compiled against the official OpenFX C++ Support
+library. Several are ports of the [purzOS](https://github.com/purzbeats/purzOS)
+web effects; the rest are OFX-native. Everything lands under **OpenFX → purzOS**.
 
 All effects are **deterministic** — any randomness is hashed from
 `(seed, frame, position)`, never `rand()` — so a render is byte-for-byte
@@ -81,6 +83,97 @@ randomness at all.
 | <img src="assets/scan-warp.jpg" width="240" alt="Scan Warp" /> | Scan Warp | Rutt/Etra scan processor: the image's own brightness deflects the raster vertically — footage becomes terrain |
 | <img src="assets/phosphor-melt.jpg" width="240" alt="Phosphor Melt" /> | Phosphor Melt | bright pixels burn in and drip decaying colour trails (down/up/left/right), like smeared phosphor burn |
 | <img src="assets/vector-rescan.jpg" width="240" alt="Vector Rescan" /> | Vector Rescan | oscillographics: sparse scanlines ride the luma like terrain, drawn as a dotted beam with two-tier phosphor glow |
+
+### Pixelart & dithering
+
+Chunky, palette-locked, print-shop looks. All deterministic.
+
+| Plugin | What it does |
+|---|---|
+| Posterize | per-channel bit-depth crush + optional snap to a vintage hardware palette (CGA / EGA / NES / PICO-8 / C64 / Game Boy), with ordered dither |
+| Error Diffuse | Floyd–Steinberg error-diffusion dithering down to a small fixed palette, at a chunky pixel size |
+| Mosaic | block pixelation with square / circle / diamond cells |
+| Halftone | rotated dot screens — newsprint mono or a CMY colour rosette (port of the web tool) |
+| Crosshatch | pen-and-ink crosshatch shading built up in layers as the image darkens |
+| Threshold | 1-bit black/white cut with a hard, Bayer, or noise dither and custom ink/paper |
+| Glyph Blocks | PETSCII-style 2×2 block-element mosaic on a terminal colour scheme |
+
+### Glitch & datamosh
+
+`Hold` sets how many frames each glitch state lasts before re-rolling; `Seed`
+re-rolls the whole pattern. All hashed from `(seed, frame, position)`.
+
+| Plugin | What it does |
+|---|---|
+| Block Mosh | fake datamosh — blocks yanked to hashed offsets and smeared, decaying over the hold |
+| Bit Crush | bit-plane quantise per channel + probabilistic XOR corruption |
+| Bad Signal | tape dropout dashes, static bursts, and whole scanlines collapsing to snow |
+| Line Stutter | horizontal bands repeat / hold / shear sideways |
+| Channel Delay | R/G/B pulled apart spatially along a direction, with time jitter |
+| Wave Shear | sine-driven horizontal / vertical / both-axis shear ripple |
+| Data Bend | per-row byte-rotation + random channel-order corruption |
+| Ghost | RF multipath — decaying, tinted echo copies trailing the image |
+
+### CRT & display
+
+Tube simulation, from a single scanline pass to the whole curved screen.
+
+| Plugin | What it does |
+|---|---|
+| Scanlines | CRT scanline darkening + optional RGB phosphor-triad stripes |
+| Shadow Mask | phosphor mask — aperture grille, slot mask, or dot triad |
+| CRT Screen | all-in-one tube: barrel curvature + scanlines + mask + vignette + rounded cutoff |
+| Bloom | thresholded highlight bloom with a fast separable blur and a tint |
+| Interlace | interlaced-field combing, odd field shifted and darkened (alternates per frame) |
+| Roll Bar | a hum bar of brightness rolling vertically up the frame |
+| Vignette | corner darkening + edge tint + film grain |
+| Overscan | slight zoom into a rounded CRT bezel mask |
+
+### Colour & tone
+
+Per-pixel grades and false-colour maps — deterministic, no neighbours.
+
+| Plugin | What it does |
+|---|---|
+| Solarize | Sabattier partial inversion above a threshold, per-channel or by luma |
+| Thermal | false-colour thermal camera (Iron / Rainbow / Predator / Arctic) |
+| Gradient Map | luma through a 3-stop gradient — Vaporwave / Sunset / Matrix / Ice / Fire / Mono / custom |
+| Night Vision | image-intensifier green gain + grain + scanline + vignette |
+| Chromatic | VHS colour — saturation boost, hue rotate, chroma quantise |
+| Bleach | bleach-bypass: desaturate then overlay the luma back for crushed contrast |
+| Infrared | Aerochrome false-colour IR — foliage to magenta, skies to cyan |
+| Cross Process | film cross-process curves (C41-in-E6, E6-in-C41, Faded, Teal-Orange) |
+
+### Analog signal extras
+
+More one-stage composite/VHS failures to stack with the analog suite above.
+
+| Plugin | What it does |
+|---|---|
+| Head Switch | the torn, noisy head-switching band across the bottom of a VHS frame |
+| Dot Crawl | crawling composite dot-crawl shimmer along chroma edges |
+| Hum | AC hum bars — rolling brightness ripple with a little horizontal push |
+| Snow | analog TV snow / static, optionally only in the shadows |
+| Tracking Bar | a band of tracking noise drifting vertically, lines torn and desaturated |
+| Color Under | VHS chroma noise / rainbow speckle pooling in the shadows |
+| Edge Enhance | VHS oversharpening — ringing halos around every edge |
+| Dropout | white/black tape-dropout dashes riding the scanlines |
+
+### Optics & warp
+
+Lens and mirror geometry. `Spin` / `Speed` params animate over a clip.
+
+| Plugin | What it does |
+|---|---|
+| Twirl | swirl the raster around the centre, hard in the middle, still at the edge |
+| Fisheye | barrel / pincushion lens distortion with zoom |
+| Kaleidoscope | mirror-wedge radial symmetry |
+| Bulge | localised pinch / punch lens at a movable centre |
+| Mirror Tile | seamless mirrored tiling (X / Y / quad / both) |
+| Chromatic Aberration | radial RGB lens fringing, strongest at the edges |
+| Ripple | radial pond ripple, animated and falling off with distance |
+| Melt | per-column downward drip, like the picture sliding off the screen |
+| Glass | frosted-glass value-noise refraction wobble |
 
 ## Build from source
 
